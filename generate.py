@@ -18,7 +18,7 @@ def move(ions, active):
     ions[:,0] = np.clip(ions[:,0], START_X, STOP_X)
     ions[:,1] = np.clip(ions[:,1], START_Y, STOP_Y)
 
-def collide(ions, active):
+def collide(ions, active, tree_connections):
     for i in range(ION_COUNT):
         for j in range(ION_COUNT):
             if i == j:
@@ -30,9 +30,12 @@ def collide(ions, active):
             distance = np.sqrt(pow(ions[i][0] - ions[j][0], 2) + pow(ions[i][1] - ions[j][1], 2))
             if distance <= 2 * ION_RADIUS:
                 active[j] = False
+                tree_connections.append([ions[i][0], ions[i][1], ions[j][0], ions[j][1]])
 
-def draw(ions, active):
-    plt.scatter(ions[:,0], ions[:,1], 1, c=active[:])
+def draw(ions, active, tree_connections):
+    plt.scatter(ions[active,0], ions[active,1], 1, c="red")
+    for l in tree_connections:
+        plt.plot([l[0], l[2]], [l[1], l[3]], 'black', linewidth='1')
     plt.xlim(START_X, STOP_X)
     plt.ylim(START_Y, STOP_Y)
     plt.pause(0.001)
@@ -42,6 +45,7 @@ if __name__ == "__main__":
     # Initialize
     ions = np.empty((ION_COUNT, 2), dtype = float)
     active = [True for _ in range(ION_COUNT)]
+    tree_connections = []
 
     # Put ions in random positions
     for i in range(ION_COUNT):
@@ -54,7 +58,7 @@ if __name__ == "__main__":
 
     while True:
         move(ions, active)
-        collide(ions, active)
-        draw(ions, active)
+        collide(ions, active, tree_connections)
+        draw(ions, active, tree_connections)
         if active.count(True) == 0:
             break
