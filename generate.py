@@ -2,12 +2,13 @@ import numpy as np
 import random
 import matplotlib.pyplot as plt
 
-ION_COUNT = 10000
+ION_COUNT = 1000
 START_X = 0
 START_Y = 0
 STOP_X = 10
 STOP_Y = 10
 ION_MOVEMENT = 0.05
+ION_RADIUS = 0.1
 
 def move(ions, active):
     for i in range(ION_COUNT):
@@ -16,6 +17,19 @@ def move(ions, active):
                 ions[i][j] += random.uniform(-ION_MOVEMENT, ION_MOVEMENT)
     ions[:,0] = np.clip(ions[:,0], START_X, STOP_X)
     ions[:,1] = np.clip(ions[:,1], START_Y, STOP_Y)
+
+def collide(ions, active):
+    for i in range(ION_COUNT):
+        for j in range(ION_COUNT):
+            if i == j:
+                continue
+            if active[i]:
+                break
+            if not active[j]:
+                continue
+            distance = np.sqrt(pow(ions[i][0] - ions[j][0], 2) + pow(ions[i][1] - ions[j][1], 2))
+            if distance <= 2 * ION_RADIUS:
+                active[j] = False
 
 def draw(ions, active):
     plt.scatter(ions[:,0], ions[:,1], 1, c=active[:])
@@ -40,4 +54,5 @@ if __name__ == "__main__":
 
     for i in range(100):
         move(ions, active)
+        collide(ions, active)
         draw(ions, active)
