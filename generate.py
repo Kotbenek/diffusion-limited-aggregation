@@ -8,7 +8,7 @@ START_Y = 0
 STOP_X = 10
 STOP_Y = 10
 ION_MOVEMENT = 0.05
-ION_RADIUS = 0.1
+ION_RADIUS = 0.15
 
 def move(ions, active):
     for i in range(ION_COUNT):
@@ -52,7 +52,9 @@ if __name__ == "__main__":
     ions[0][0] = (STOP_X - START_X) / 2
     ions[0][1] = (STOP_Y - START_Y) / 2
 
-    for i in range(100):
+    while True:
         move(ions, active)
         collide(ions, active)
         draw(ions, active)
+        if active.count(True) == 0:
+            break
