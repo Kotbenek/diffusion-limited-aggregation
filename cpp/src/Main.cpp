@@ -1,7 +1,7 @@
 #include "Main.h"
 
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include <random>
 
 std::random_device rd;
@@ -91,7 +91,7 @@ int main(int argc, char** argv)
 
     int count;
 
-    while(1)
+    while (1)
     {
         move(X, Y, active);
         collide(X, Y, active);
