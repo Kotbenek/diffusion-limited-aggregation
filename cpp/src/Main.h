@@ -7,5 +7,3 @@ const int STOP_X = 54;
 const int STOP_Y = 4;
 const float ION_MOVEMENT = 0.05;
 const float ION_RADIUS = 0.05;
-
-int main(int argc, char** argv);
