@@ -13,7 +13,6 @@ std::uniform_real_distribution<> d_i(-ION_MOVEMENT, ION_MOVEMENT);
 void move(float X[], float Y[], bool active[])
 {
     for (int i = 0; i < ION_COUNT; i++)
-    {
         if (active[i])
         {
             X[i] += d_i(e);
@@ -28,7 +27,6 @@ void move(float X[], float Y[], bool active[])
             if (Y[i] > STOP_Y)
                 Y[i] = STOP_Y;
         }
-    }
 }
 
 void write_to_file(float X1, float Y1, float X2, float Y2)
@@ -42,7 +40,6 @@ void write_to_file(float X1, float Y1, float X2, float Y2)
 void collide(float X[], float Y[], bool active[])
 {
     for (int i = 0; i < ION_COUNT; i++)
-    {
         for (int j = 0; j < ION_COUNT; j++)
         {
             if (i == j)
@@ -59,7 +56,6 @@ void collide(float X[], float Y[], bool active[])
                 write_to_file(X[i], Y[i], X[j], Y[j]);
             }
         }
-    }
 }
 
 int active_count(bool active[])
