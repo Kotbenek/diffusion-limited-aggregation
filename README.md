@@ -1,3 +1,8 @@
+# Moved to Codeberg
+
+This repository was moved to Codeberg:
+https://codeberg.org/Kotbenek/diffusion-limited-aggregation
+
 # diffusion-limited-aggregation
 
 A simulation of **diffusion-limited aggregation** implemented in Python and C++.
